@@ -90,7 +90,7 @@
     
     _titleFont        = [UIFont systemFontOfSize:15];
     _subtitleFont     = [UIFont systemFontOfSize:10];
-    _weekdayFont      = [UIFont systemFontOfSize:15];
+    _weekdayFont      = [UIFont systemFontOfSize:11];
     _headerTitleFont  = [UIFont systemFontOfSize:15];
     _headerTitleColor = kBlueText;
     
@@ -101,7 +101,7 @@
         weekdayLabel.text = weekSymbols[i];
         weekdayLabel.textAlignment = NSTextAlignmentCenter;
         weekdayLabel.font = _weekdayFont;
-        weekdayLabel.textColor = kBlueText;
+        weekdayLabel.textColor = [UIColor colorWithRed:0.86 green:0.28 blue:0.5 alpha:1];
         [_weekdays addObject:weekdayLabel];
         [self addSubview:weekdayLabel];
     }
@@ -159,13 +159,13 @@
     _cellStyle = FSCalendarCellStyleCircle;
     _autoAdjustTitleSize = YES;
     
-    CALayer *topBorderLayer = [CALayer layer];
-    topBorderLayer.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2].CGColor;
-    [self.layer addSublayer:topBorderLayer];
-    self.topBorderLayer = topBorderLayer;
+//    CALayer *topBorderLayer = [CALayer layer];
+//    topBorderLayer.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2].CGColor;
+//    [self.layer addSublayer:topBorderLayer];
+//    self.topBorderLayer = topBorderLayer;
     
     CALayer *bottomBorderLayer = [CALayer layer];
-    bottomBorderLayer.backgroundColor = _topBorderLayer.backgroundColor;
+    bottomBorderLayer.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.2].CGColor;
     [self.layer addSublayer:bottomBorderLayer];
     self.bottomBorderLayer = bottomBorderLayer;
     

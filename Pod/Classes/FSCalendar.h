@@ -96,6 +96,7 @@ typedef NS_OPTIONS(NSInteger, FSCalendarCellState) {
 @property (strong, nonatomic) UIColor  *selectionColor           UI_APPEARANCE_SELECTOR;
 @property (strong, nonatomic) UIColor  *todayColor               UI_APPEARANCE_SELECTOR;
 
+
 //已签到日期
 @property (strong, nonatomic) NSMutableArray * signedDates;
 

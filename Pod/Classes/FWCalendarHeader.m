@@ -32,6 +32,7 @@
     _dateFormatter = [NSDateFormatter new];
     _dateFormatter.dateFormat = _dateFormat;
     
+    self.backgroundColor = [UIColor colorWithRed:0.97 green:0.97 blue:0.97 alpha:1];
     
     self.titleLabel = [UILabel new];
     self.titleLabel .textAlignment = NSTextAlignmentCenter;
@@ -54,7 +55,7 @@
     [left mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@15);
         make.height.equalTo(@15);
-        make.left.equalTo(self).offset(16);
+        make.left.equalTo(self).offset(36);
         make.centerY.equalTo(self);
     }];
     
@@ -66,7 +67,7 @@
     [right mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.equalTo(@15);
         make.height.equalTo(@15);
-        make.right.equalTo(self).offset(-16);
+        make.right.equalTo(self).offset(-36);
         make.centerY.equalTo(self);
     }];
 }
