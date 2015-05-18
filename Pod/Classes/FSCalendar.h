@@ -97,6 +97,10 @@ typedef NS_OPTIONS(NSInteger, FSCalendarCellState) {
 @property (strong, nonatomic) UIColor  *todayColor               UI_APPEARANCE_SELECTOR;
 
 - (void)reloadData;
+- (void)scrollToDate:(NSDate *)date;
+- (void)scrollToDate:(NSDate *)date animate:(BOOL)animate;
+
+- (void)setSelectedDate:(NSDate *)selectedDate animate:(BOOL)animate;
 
 @end
 

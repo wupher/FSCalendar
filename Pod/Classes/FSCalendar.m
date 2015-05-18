@@ -54,10 +54,7 @@
 - (NSDate *)dateForIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForDate:(NSDate *)date;
 
-- (void)scrollToDate:(NSDate *)date;
-- (void)scrollToDate:(NSDate *)date animate:(BOOL)animate;
 
-- (void)setSelectedDate:(NSDate *)selectedDate animate:(BOOL)animate;
 
 - (BOOL)isDateInRange:(NSDate *)date;
 
