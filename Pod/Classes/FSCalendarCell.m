@@ -151,7 +151,8 @@
         _titleLabel.frame = CGRectMake(0, 0, self.fs_width, floor(self.contentView.fs_height*5.0/6.0));
         _subtitleLabel.hidden = YES;
     }
-    _backgroundLayer.hidden = !self.selected && !self.isToday;
+    _backgroundLayer.hidden = YES;
+//    _backgroundLayer.hidden = !self.selected && !self.isToday;
     _backgroundLayer.path = _cellStyle == FSCalendarCellStyleCircle ?
     [UIBezierPath bezierPathWithOvalInRect:_backgroundLayer.bounds].CGPath :
     [UIBezierPath bezierPathWithRect:_backgroundLayer.bounds].CGPath;
@@ -176,12 +177,15 @@
 
 - (UIColor *)colorForCurrentStateInDictionary:(NSDictionary *)dictionary
 {
-    if (self.isSelected) {
-        return dictionary[@(FSCalendarCellStateSelected)];
-    }
     if (self.isToday) {
-        return dictionary[@(FSCalendarCellStateToday)];
+        //        return dictionary[@(FSCalendarCellStateToday)];
+        return [UIColor colorWithRed:0.86 green:0.28 blue:0.5 alpha:1];
     }
+    if (self.isSelected) {
+//        return dictionary[@(FSCalendarCellStateSelected)];
+        return dictionary[@(FSCalendarCellStateNormal)];;
+    }
+
     if (self.isPlaceholder) {
         return dictionary[@(FSCalendarCellStatePlaceholder)];
     }
