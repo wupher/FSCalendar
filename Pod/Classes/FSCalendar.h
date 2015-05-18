@@ -106,6 +106,9 @@ typedef NS_OPTIONS(NSInteger, FSCalendarCellState) {
 
 - (void)setSelectedDate:(NSDate *)selectedDate animate:(BOOL)animate;
 
+- (void)setCurrentMonth:(NSDate *)currentMonth;
+- (void)setCurrentMonth:(NSDate *)currentMonth animate:(BOOL)animate;
+
 @end
 
 

@@ -385,13 +385,17 @@
 
 - (void)setCurrentMonth:(NSDate *)currentMonth
 {
+    [self setCurrentMonth:currentMonth animate:NO];
+}
+
+- (void)setCurrentMonth:(NSDate *)currentMonth animate:(BOOL)animate{
     if (![self isDateInRange:currentMonth]) {
         [NSException raise:@"currentMonth out of range" format:nil];
     }
     if (![_currentMonth fs_isEqualToDateForMonth:currentMonth]) {
         _currentMonth = [currentMonth copy];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self scrollToDate:_currentMonth];
+            [self scrollToDate:_currentMonth animate:animate];
             [self currentMonthDidChange];
         });
     }

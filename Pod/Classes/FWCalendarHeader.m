@@ -8,6 +8,7 @@
 
 #import "FWCalendarHeader.h"
 #import <Masonry/Masonry.h>
+#import "NSDate+FSExtension.h"
 
 @implementation FWCalendarHeader
 
@@ -72,32 +73,18 @@
     }];
 }
 
-- (void)reloadData{
-    
-}
-
 - (IBAction)doLeft:(id)sender{
     NSDate * month = self.calendar.currentMonth;
-    NSDate * prevMonth = [month dateByAddingTimeInterval: -1 * 60 * 60 * 24 * 30];
-    [self.calendar setSelectedDate:prevMonth animate:YES];
+    NSDate * prevMonth = [month fs_dateBySubtractingMonths:1];
+    
+    [self.calendar setCurrentMonth:prevMonth animate:YES];
+    self.titleLabel.text = [_dateFormatter stringFromDate:prevMonth];
 }
 
 - (IBAction)doRight:(id)sender{
-    NSDate * date = self.calendar.selectedDate;
-    NSDate * nextMonth = [date dateByAddingTimeInterval:60 * 60 * 24 * 30];
-    [self.calendar setSelectedDate:nextMonth animate:YES];
+    NSDate * date = self.calendar.currentMonth;
+    NSDate * nextMonth = [date fs_dateByAddingMonths:1];
+    [self.calendar setCurrentMonth:nextMonth animate:YES];
+    self.titleLabel.text = [_dateFormatter stringFromDate:nextMonth];
 }
-
-- (void)setCalendar:(FSCalendar *)calendar{
-    _calendar = calendar;
-    _calendar.delegate = self;
-}
-
-#pragma mark - calendar delegate methods
-
-- (void) calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date{
-    NSLog(@"date changed!");
-    self.titleLabel.text  = [_dateFormatter stringFromDate:date];
-}
-
 @end
