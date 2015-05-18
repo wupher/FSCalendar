@@ -86,6 +86,8 @@
 
 - (void)initialize
 {
+    _signedDates = [NSMutableArray array];
+    
     _titleFont        = [UIFont systemFontOfSize:15];
     _subtitleFont     = [UIFont systemFontOfSize:10];
     _weekdayFont      = [UIFont systemFontOfSize:15];
@@ -138,7 +140,7 @@
     _backgroundColors[@(FSCalendarCellStateDisabled)]    = [UIColor clearColor];
     _backgroundColors[@(FSCalendarCellStatePlaceholder)] = [UIColor clearColor];
     _backgroundColors[@(FSCalendarCellStateToday)]       = kPink;
-
+    
     _titleColors = [NSMutableDictionary dictionaryWithCapacity:4];
     _titleColors[@(FSCalendarCellStateNormal)]      = [UIColor darkTextColor];
     _titleColors[@(FSCalendarCellStateSelected)]    = [UIColor whiteColor];
@@ -152,7 +154,7 @@
     _subtitleColors[@(FSCalendarCellStateDisabled)]    = [UIColor lightGrayColor];
     _subtitleColors[@(FSCalendarCellStatePlaceholder)] = [UIColor lightGrayColor];
     _subtitleColors[@(FSCalendarCellStateToday)]       = [UIColor whiteColor];
-
+    
     _eventColor = [kBlue colorWithAlphaComponent:0.75];
     _cellStyle = FSCalendarCellStyleCircle;
     _autoAdjustTitleSize = YES;
@@ -166,7 +168,7 @@
     bottomBorderLayer.backgroundColor = _topBorderLayer.backgroundColor;
     [self.layer addSublayer:bottomBorderLayer];
     self.bottomBorderLayer = bottomBorderLayer;
-
+    
 }
 
 -(void)layoutSubviews
@@ -242,6 +244,17 @@
     cell.subtitle           = [self subtitleForDate:cell.date];
     cell.hasEvent           = [self hasEventForDate:cell.date];
     [cell configureCell];
+    //    for (NSDate * signedDate in self.signedDates) {
+    //        if (signedDate == cell.date) {
+    //            cell.titleLabel.text = @"";
+    //            cell.imageView.image = [UIImage imageNamed:@"signed"];
+    //        }
+    //    }
+    
+    if ([self.signedDates containsObject:cell.date]) {
+        cell.imageView.image = [UIImage imageNamed:@"signed"];
+        cell.titleLabel.text = @"";
+    }
     return cell;
 }
 
@@ -296,7 +309,7 @@
     if (self.flow != flow) {
         _flow = flow;
         NSIndexPath *newIndexPath;
-
+        
         if (_collectionView.indexPathsForSelectedItems && _collectionView.indexPathsForSelectedItems.count) {
             NSIndexPath *indexPath = _collectionView.indexPathsForSelectedItems.lastObject;
             if (flow == FSCalendarFlowVertical) {
@@ -304,13 +317,13 @@
                 NSInteger row    = index % 6;
                 NSInteger column = index / 6;
                 newIndexPath = [NSIndexPath indexPathForRow:column+row*7
-                                                               inSection:indexPath.section];
+                                                  inSection:indexPath.section];
             } else if (flow == FSCalendarFlowHorizontal) {
                 NSInteger index  = indexPath.item;
                 NSInteger row    = index / 7;
                 NSInteger column = index % 7;
                 newIndexPath = [NSIndexPath indexPathForRow:row+column*6
-                                                               inSection:indexPath.section];
+                                                  inSection:indexPath.section];
             }
         }
         _collectionViewFlowLayout.scrollDirection = (UICollectionViewScrollDirection)flow;
@@ -396,7 +409,7 @@
 {
     if (![_weekdayTextColor isEqual:weekdayTextColor]) {
         _weekdayTextColor = weekdayTextColor;
-       [_weekdays setValue:weekdayTextColor forKeyPath:@"textColor"];
+        [_weekdays setValue:weekdayTextColor forKeyPath:@"textColor"];
     }
 }
 

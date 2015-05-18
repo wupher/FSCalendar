@@ -25,6 +25,7 @@
 
 @property (weak,   nonatomic) UILabel             *titleLabel;
 @property (weak,   nonatomic) UILabel             *subtitleLabel;
+@property (strong, nonatomic) UIImageView         *imageView;
 
 @property (assign, nonatomic) FSCalendarCellStyle cellStyle;
 @property (assign, nonatomic) BOOL                hasEvent;

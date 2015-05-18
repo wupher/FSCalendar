@@ -10,6 +10,7 @@
 #import "FSCalendar.h"
 #import "UIView+FSExtension.h"
 #import "NSDate+FSExtension.h"
+#import <Masonry/Masonry.h>
 
 #define kAnimationDuration 0.15
 
@@ -59,6 +60,14 @@
         _eventLayer.path = [UIBezierPath bezierPathWithOvalInRect:_eventLayer.bounds].CGPath;
         _eventLayer.hidden = YES;
         [self.contentView.layer addSublayer:_eventLayer];
+        
+        _imageView = [[UIImageView alloc] init];
+        [self.contentView addSubview:_imageView];
+        [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.lessThanOrEqualTo(self);
+            make.height.lessThanOrEqualTo(self);
+            make.center.equalTo(self);
+        }];
     }
     return self;
 }
@@ -81,6 +90,7 @@
 - (void)prepareForReuse
 {
     [super prepareForReuse];
+    _imageView.image = nil;
     [CATransaction setDisableActions:YES];
 }
 
