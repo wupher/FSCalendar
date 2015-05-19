@@ -27,6 +27,7 @@
 @property (weak,   nonatomic) UILabel             *subtitleLabel;
 @property (strong, nonatomic) UIImageView         *imageView;
 
+
 @property (assign, nonatomic) FSCalendarCellStyle cellStyle;
 @property (assign, nonatomic) BOOL                hasEvent;
 
@@ -35,5 +36,7 @@
 - (void)showAnimation;
 - (void)hideAnimation;
 - (void)configureCell;
+//签到动画
+- (void)signAnimation;
 
 @end

@@ -99,6 +99,8 @@ typedef NS_OPTIONS(NSInteger, FSCalendarCellState) {
 
 //已签到日期
 @property (strong, nonatomic) NSMutableArray * signedDates;
+//当天是否已经签到
+@property (assign, nonatomic, readonly) BOOL hasSigned;
 
 - (void)reloadData;
 - (void)scrollToDate:(NSDate *)date;
@@ -108,6 +110,8 @@ typedef NS_OPTIONS(NSInteger, FSCalendarCellState) {
 
 - (void)setCurrentMonth:(NSDate *)currentMonth;
 - (void)setCurrentMonth:(NSDate *)currentMonth animate:(BOOL)animate;
+//签到
+- (void)sign;
 
 @end
 

@@ -87,6 +87,7 @@
 - (void)initialize
 {
     _signedDates = [NSMutableArray array];
+    _hasSigned = NO;
     
     _titleFont        = [UIFont systemFontOfSize:15];
     _subtitleFont     = [UIFont systemFontOfSize:10];
@@ -215,6 +216,16 @@
         _bottomBorderLayer.frame = CGRectMake(0, self.fs_height, self.fs_width, 1);
     }
 }
+#pragma mark - 签到
+- (void)sign {
+    if (!_hasSigned) {
+        NSIndexPath * indexPath = [self indexPathForDate:[NSDate date]];
+        FSCalendarCell *cell = (FSCalendarCell *)[_collectionView cellForItemAtIndexPath:indexPath];
+        [cell signAnimation];
+        _hasSigned = YES;
+        [_signedDates addObject:[NSDate fs_dateWithYear:[_currentDate fs_year] month:[_currentDate fs_month] day:[_currentDate fs_day]]];
+    }
+}
 
 #pragma mark - UICollectionView dataSource/delegate
 
@@ -228,6 +239,7 @@
     return 42;
 }
 
+# pragma mark - cell生成
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     FSCalendarCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
@@ -244,17 +256,17 @@
     cell.subtitle           = [self subtitleForDate:cell.date];
     cell.hasEvent           = [self hasEventForDate:cell.date];
     [cell configureCell];
-    //    for (NSDate * signedDate in self.signedDates) {
-    //        if (signedDate == cell.date) {
-    //            cell.titleLabel.text = @"";
-    //            cell.imageView.image = [UIImage imageNamed:@"signed"];
-    //        }
-    //    }
     
-    if ([self.signedDates containsObject:cell.date]) {
-        cell.imageView.image = [UIImage imageNamed:@"signed"];
-        cell.titleLabel.text = @"";
-    }
+ if ([self.signedDates containsObject:cell.date]) {
+     NSLog(@"cell.date %@, currentDate: %@", cell.date, self.currentDate);
+     if ([_currentDate fs_isEqualToDateForDay:cell.date] && self.hasSigned) {
+         cell.imageView.image = [UIImage imageNamed:@"today_signed"];
+         cell.titleLabel.textColor = [UIColor whiteColor];
+     }else{
+         cell.imageView.image = [UIImage imageNamed:@"signed"];
+         cell.titleLabel.text = @"";
+     }
+ }
     return cell;
 }
 

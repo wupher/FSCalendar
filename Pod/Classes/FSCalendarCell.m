@@ -34,6 +34,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        
+        _imageView = [[UIImageView alloc] init];
+        [self.contentView addSubview:_imageView];
+        [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.centerY.equalTo(self.contentView).offset(-4);
+        }];
+        
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -61,13 +69,7 @@
         _eventLayer.hidden = YES;
         [self.contentView.layer addSublayer:_eventLayer];
         
-        _imageView = [[UIImageView alloc] init];
-        [self.contentView addSubview:_imageView];
-        [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.lessThanOrEqualTo(self);
-            make.height.lessThanOrEqualTo(self);
-            make.center.equalTo(self);
-        }];
+
     }
     return self;
 }
@@ -95,6 +97,30 @@
 }
 
 #pragma mark - Public
+
+#pragma mark - 签到动画
+- (void)signAnimation{
+    _backgroundLayer.hidden = NO;
+    _backgroundLayer.path = [UIBezierPath bezierPathWithOvalInRect:_backgroundLayer.bounds].CGPath;
+    _backgroundLayer.fillColor = [self colorForCurrentStateInDictionary:_backgroundColors].CGColor;
+
+
+    [CATransaction begin];
+    CABasicAnimation * zoomOut = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    zoomOut.fromValue = @0.3;
+    zoomOut.toValue = @1.2;
+    zoomOut.duration = 0.2f;
+    zoomOut.delegate = self;
+    [CATransaction setCompletionBlock:^{
+        [self configureCell];
+        self.titleLabel.textColor = [UIColor whiteColor];
+        self.imageView.image = [UIImage imageNamed:@"today_signed"];
+    }];
+    [_backgroundLayer addAnimation:zoomOut forKey:@"sign"];
+    [CATransaction commit];
+}
+
+#pragma mark - animation delegate
 
 - (void)showAnimation
 {
